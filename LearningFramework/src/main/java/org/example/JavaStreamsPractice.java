@@ -82,7 +82,8 @@ public class JavaStreamsPractice {
                 .filter(employee -> employee.salary > 15000)
                 .forEach(employee -> System.out.println(employee.id + ":" + employee.name + " : " + employee.salary + " : " + employee.dept));
 
-        empList.stream()
+        Map<String, List<Employee>> emplst = empList.stream()
+
                 .collect(Collectors.groupingBy(employee -> employee.dept));
 
 
@@ -95,7 +96,7 @@ class Employee {
     String dept;
     double salary;
 
-    public Employee(int id, String name, String dept, double salary){
+    public Employee(int id, String name, String dept, double salary) {
         this.id = id;
         this.name = name;
         this.dept = dept;
