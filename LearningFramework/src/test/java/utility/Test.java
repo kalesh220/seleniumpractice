@@ -7,6 +7,7 @@ public class Test {
         String sheetName = "sheet1";
         int rowCount = efh.getRowsCount(sheetName, path);
         System.out.println(rowCount);
-
+        String data = efh.getCellData(path, sheetName, 1, 1);
+        System.out.println(data);
     }
 }

@@ -5,6 +5,7 @@ import org.apache.poi.xssf.usermodel.*;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Formatter;
 
 public class ExcelFileHandling {
 
@@ -35,6 +36,20 @@ public class ExcelFileHandling {
             row = workSheet.getRow(rowNumber);
             return row.getLastCellNum();
         } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public String getCellData(String path, String sheetName, int rowNumber, int cellNumber){
+        try{
+            fileInputStream = new FileInputStream(path);
+            workbook = new XSSFWorkbook(fileInputStream);
+            workSheet = workbook.getSheet(sheetName);
+            row = workSheet.getRow(rowNumber);
+            cell = row.getCell(cellNumber);
+
+            return cell.getStringCellValue();
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
