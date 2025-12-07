@@ -1,5 +1,6 @@
 package utility;
 
+import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.xssf.usermodel.*;
 
 import java.io.FileInputStream;
@@ -11,13 +12,13 @@ public class ExcelFileHandling {
 
     public static FileInputStream fileInputStream;
     public static FileOutputStream fileOutputStream;
-    public XSSFWorkbook workbook;
-    public XSSFSheet workSheet;
-    public XSSFRow row;
-    public XSSFCell cell;
+    public static XSSFWorkbook workbook;
+    public static XSSFSheet workSheet;
+    public static XSSFRow row;
+    public static XSSFCell cell;
     public XSSFCellStyle style;
 
-    public int getRowsCount(String sheet, String path){
+    public static int getRowsCount(String sheet, String path){
         try {
             fileInputStream = new FileInputStream(path);
             workbook = new XSSFWorkbook(fileInputStream);
@@ -28,7 +29,7 @@ public class ExcelFileHandling {
         }
     }
 
-    public int getCellsCount(String path, String sheetName, int rowNumber){
+    public static int getCellsCount(String path, String sheetName, int rowNumber){
         try{
             fileInputStream = new FileInputStream(path);
             workbook = new XSSFWorkbook(fileInputStream);
@@ -40,15 +41,16 @@ public class ExcelFileHandling {
         }
     }
 
-    public String getCellData(String path, String sheetName, int rowNumber, int cellNumber){
+    public static String getCellData(String path, String sheetName, int rowNumber, int cellNumber){
         try{
             fileInputStream = new FileInputStream(path);
             workbook = new XSSFWorkbook(fileInputStream);
             workSheet = workbook.getSheet(sheetName);
             row = workSheet.getRow(rowNumber);
             cell = row.getCell(cellNumber);
+            DataFormatter formatter = new DataFormatter();
+            return formatter.formatCellValue(cell);
 
-            return cell.getStringCellValue();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
